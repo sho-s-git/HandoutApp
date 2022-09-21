@@ -1,16 +1,15 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Header } from 'react-native-elements';
+import {
+  StyleSheet, View, Button,
+} from 'react-native';
 import Constants from 'expo-constants';
 
-function HandoutListScreen() {
+function HandoutListScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Header
-        backgroundColor="#ffffff"
-        leftComponent={{ icon: 'trash', type: 'feather', color: '#000' }}
-        centerComponent={{ text: 'おたより', style: { color: '#000', fontSize: 20, fontWeight: 'bold' } }}
-        rightComponent={{ icon: 'search', type: 'feather', color: '#000' }}
+      <Button
+        title="ViewHandout"
+        onPress={() => navigation.navigate('ViewHandout')}
       />
     </View>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import Constants from 'expo-constants';
 
-function HandoutRegister() {
+function ViewHandout() {
   return (
     <View style={styles.container}>
       <Text>sample</Text>
@@ -18,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HandoutRegister;
+export default ViewHandout;
