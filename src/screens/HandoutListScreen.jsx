@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet, View, Button,
 } from 'react-native';
-import Constants from 'expo-constants';
 
 function HandoutListScreen({ navigation }) {
   return (
@@ -19,7 +18,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: Constants.statusBarHeight,
   },
 });
 
