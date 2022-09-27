@@ -1,20 +1,22 @@
 import { Camera, CameraType } from 'expo-camera';
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  StyleSheet, Text, TouchableOpacity, View, SafeAreaView,
+  StyleSheet, Text, TouchableOpacity, View, SafeAreaView, Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../env';
-import { fireStorage }
+// import { initializeApp } from 'firebase/app';
+// import { getStorage, ref } from 'firebase/storage';
+// import { firebaseConfig } from '../../env';
 
-const app = initializeApp(firebaseConfig);
+// const app = initializeApp(firebaseConfig);
+// const storage = getStorage(app);
+// const storageRef = ref(storage);
 
 function HandoutRegister() {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(CameraType.back);
-  const [isPreview, setIsPreview] = useState(false);
+  const [picture, setPicture] = useState(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const cameraRef = useRef();
 
@@ -35,16 +37,16 @@ function HandoutRegister() {
       const data = await cameraRef.current.takePictureAsync(options);
       const source = data.uri;
       if (source) {
-        await cameraRef.current.pausePreview();
-        setIsPreview(true);
+        // await cameraRef.current.pausePreview();
+        setPicture(source);
         console.log('picture source', source);
       }
     }
   };
 
   const cancelPreview = async () => {
-    await cameraRef.current.resumePreview();
-    setIsPreview(false);
+    // await cameraRef.current.resumePreview();
+    setPicture(null);
   };
 
   function toggleCameraType() {
@@ -89,18 +91,22 @@ function HandoutRegister() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Camera
-        ref={cameraRef}
-        style={styles.camera}
-        type={setCameraType}
-        flashMode={Camera.Constants.FlashMode.on}
-        onCameraReady={onCameraReady}
-        onMountError={(error) => {
-          console.log('cammera error', error);
-        }}
-      />
-      {!isPreview && renderCaptureControl()}
-      {isPreview && renderCancelPreviewButton()}
+      {!picture ? (
+        <Camera
+          ref={cameraRef}
+          style={styles.camera}
+          type={cameraType}
+          flashMode={Camera.Constants.FlashMode.on}
+          onCameraReady={onCameraReady}
+          onMountError={(error) => {
+            console.log('cammera error', error);
+          }}
+        />
+      ) : (
+        <Image source={{ uri: picture }} style={{ flex: 1 }} />
+      )}
+      {!picture && renderCaptureControl()}
+      {picture && renderCancelPreviewButton()}
     </SafeAreaView>
   );
 }
