@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 
-function HandoutRegister() {
+function HandoutRegisterScreen() {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraType, setCameraType] = useState(CameraType.back);
   const [picture, setPicture] = useState(null);
@@ -138,4 +138,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HandoutRegister;
+export default HandoutRegisterScreen;

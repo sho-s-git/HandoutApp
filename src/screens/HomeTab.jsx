@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import HandoutListScreen from './HandoutListScreen';
-import HandoutRegister from './HandoutRegister';
+import HandoutRegisterScreen from './HandoutRegisterScreen';
 import Settings from './Settings';
 
 const Tab = createBottomTabNavigator();
@@ -25,7 +25,7 @@ function HomeTab() {
       />
       <Tab.Screen
         name="HandoutRegister"
-        component={HandoutRegister}
+        component={HandoutRegisterScreen}
         options={{
           tabBarLabel: '追加',
           tabBarIcon: ({ color, size }) => (
