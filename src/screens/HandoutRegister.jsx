@@ -5,13 +5,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// import { initializeApp } from 'firebase/app';
-// import { getStorage, ref } from 'firebase/storage';
-// import { firebaseConfig } from '../../env';
-
-// const app = initializeApp(firebaseConfig);
-// const storage = getStorage(app);
-// const storageRef = ref(storage);
+import { getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 
 function HandoutRegister() {
   const [hasPermission, setHasPermission] = useState(null);
@@ -19,6 +13,12 @@ function HandoutRegister() {
   const [picture, setPicture] = useState(null);
   const [isCameraReady, setIsCameraReady] = useState(false);
   const cameraRef = useRef();
+
+  // Create a root reference
+  const storage = getStorage();
+
+  // Create a reference to 'mountains.jpg'
+  const storageRef = ref(storage, 'mountains.jpg');
 
   useEffect(() => {
     (async () => {
@@ -34,18 +34,26 @@ function HandoutRegister() {
   const takePicture = async () => {
     if (cameraRef.current) {
       const options = { quality: 1.0, base64: true, skipProcessing: false };
-      const data = await cameraRef.current.takePictureAsync(options);
-      const source = data.uri;
-      if (source) {
-        // await cameraRef.current.pausePreview();
-        setPicture(source);
-        console.log('picture source', source);
+      const { uri } = await cameraRef.current.takePictureAsync(options);
+      if (uri) {
+        setPicture(uri);
+        console.log('picture source', uri);
       }
     }
   };
 
-  const cancelPreview = async () => {
-    // await cameraRef.current.resumePreview();
+  const savePicture = async () => {
+    const response = await fetch(picture);
+    const blob = await response.blob();
+    uploadBytesResumable(storageRef, blob).then((snapshot) => {
+      setPicture(null);
+      console.log('Uploaded a blob or file!');
+    }).catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const cancelPreview = () => {
     setPicture(null);
   };
 
@@ -85,6 +93,9 @@ function HandoutRegister() {
       <TouchableOpacity onPress={cancelPreview}>
         <Ionicons name="chevron-back" size={24} color="black" />
       </TouchableOpacity>
+      <TouchableOpacity onPress={savePicture}>
+        <Ionicons name="save-outline" size={24} color="black" />
+      </TouchableOpacity>
     </View>
 
   );
@@ -96,7 +107,7 @@ function HandoutRegister() {
           ref={cameraRef}
           style={styles.camera}
           type={cameraType}
-          flashMode={Camera.Constants.FlashMode.on}
+          // flashMode={Camera.Constants.FlashMode.on}
           onCameraReady={onCameraReady}
           onMountError={(error) => {
             console.log('cammera error', error);
