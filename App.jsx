@@ -4,12 +4,12 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Ionicons } from '@expo/vector-icons';
 
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './env';
 
 import TopScreen from './src/screens/TopScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
 import LogInScreen from './src/screens/LogInScreen';
 import HomeTab from './src/screens/HomeTab';
 import HandoutRegisterScreen from './src/screens/HandoutRegisterScreen';
@@ -48,13 +48,8 @@ function App() {
             ),
           }}
         />
-        <Stack.Screen
-          name="LogIn"
-          component={LogInScreen}
-          options={{
-            title: 'ログイン',
-          }}
-        />
+        <Stack.Screen name="SignUp" component={SignUpScreen} options={{ title: '新規登録' }} />
+        <Stack.Screen name="LogIn" component={LogInScreen} options={{ title: 'ログイン' }} />
         <Stack.Screen name="HomeTab" component={HomeTab} options={{ headerShown: false }} />
         <Stack.Screen name="HandoutRegister" component={HandoutRegisterScreen} />
         <Stack.Screen name="ViewHandout" component={ViewHandout} />

@@ -10,7 +10,7 @@ function TopScreen({ navigation }) {
       <View style={styles.inner}>
         <Text style={styles.serviceName}>おたより</Text>
         <Text style={styles.text}>はじめての方はこちら</Text>
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.buttonLabel}>新規登録</Text>
         </TouchableOpacity>
         <Text style={styles.text}>すでにアカウントをお持ちの方</Text>

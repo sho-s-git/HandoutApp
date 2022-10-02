@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-function LogInScreen({ navigation }) {
+function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -31,7 +31,7 @@ function LogInScreen({ navigation }) {
           textContentType="password"
         />
         <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('HomeTab')}>
-          <Text style={styles.buttonLabel}>ログイン</Text>
+          <Text style={styles.buttonLabel}>新規登録</Text>
         </TouchableOpacity>
       </View>
       {/* eslint-disable-next-line */}
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LogInScreen;
+export default SignUpScreen;
