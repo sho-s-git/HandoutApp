@@ -7,14 +7,14 @@ import { StatusBar } from 'expo-status-bar';
 function TopScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.content}>
+      <View style={styles.inner}>
         <Text style={styles.serviceName}>おたより</Text>
         <Text style={styles.text}>はじめての方はこちら</Text>
         <TouchableOpacity style={styles.buttonContainer}>
           <Text style={styles.buttonLabel}>新規登録</Text>
         </TouchableOpacity>
         <Text style={styles.text}>すでにアカウントをお持ちの方</Text>
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('LogIn')}>
           <Text style={styles.buttonLabel}>ログイン</Text>
         </TouchableOpacity>
         <Text style={styles.text}>利用規約及びプライバシーポリシーに同意の上、登録又はログインへお進みください。</Text>
@@ -28,13 +28,12 @@ function TopScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: '#FFFFFF',
   },
-  content: {
-    justifyContent: 'center',
+  inner: {
     alignItems: 'center',
-    paddingHorizontal: 19,
+    paddingHorizontal: 27,
+    paddingVertical: 8,
   },
   serviceName: {
     marginVertical: 64,

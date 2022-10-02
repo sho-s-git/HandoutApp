@@ -4,12 +4,14 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './env';
 
-import HomeTab from './src/screens/HomeTab';
 import TopScreen from './src/screens/TopScreen';
+import LogInScreen from './src/screens/LogInScreen';
+import HomeTab from './src/screens/HomeTab';
 import HandoutRegisterScreen from './src/screens/HandoutRegisterScreen';
 import ViewHandout from './src/screens/ViewHandout';
 
@@ -27,6 +29,11 @@ function App() {
         screenOptions={{
           headerStyle: { backgroundColor: '#fff' },
           headerShadowVisible: false,
+          headerTintColor: '#FF9900',
+          headerTitleStyle: {
+            color: '#000000',
+          },
+          headerBackTitleVisible: false,
         }}
       >
         <Stack.Screen
@@ -36,9 +43,16 @@ function App() {
             title: '',
             headerRight: () => (
               <TouchableOpacity style={styles.skipContainer}>
-                <Text style={styles.skipContainer}>スキップ</Text>
+                <Text style={styles.skipLabel}>スキップ</Text>
               </TouchableOpacity>
             ),
+          }}
+        />
+        <Stack.Screen
+          name="LogIn"
+          component={LogInScreen}
+          options={{
+            title: 'ログイン',
           }}
         />
         <Stack.Screen name="HomeTab" component={HomeTab} options={{ headerShown: false }} />
@@ -55,7 +69,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 4,
   },
-  skipContainer: {
+  skipLabel: {
     fontSize: 14,
     color: '#FF9900',
   },
