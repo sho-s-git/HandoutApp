@@ -4,8 +4,12 @@ import {
 } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+// AsyncStorageに関するエラーの回避
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { initializeApp } from 'firebase/app';
+// AsyncStorageに関するエラーの回避
+import { getReactNativePersistence, initializeAuth } from 'firebase/auth/react-native';
 import { firebaseConfig } from './env';
 
 import TopScreen from './src/screens/TopScreen';
@@ -16,8 +20,10 @@ import HandoutRegisterScreen from './src/screens/HandoutRegisterScreen';
 import ViewHandout from './src/screens/ViewHandout';
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
-console.log(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});
 
 const Stack = createNativeStackNavigator();
 

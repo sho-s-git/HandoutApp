@@ -1,12 +1,34 @@
 import React, { useState } from 'react';
 import {
-  View, Text, StyleSheet, TextInput, TouchableOpacity,
+  View, Text, StyleSheet, TextInput, TouchableOpacity, Alert,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 function SignUpScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  function handlePress() {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const { user } = userCredential;
+        console.log(user.uid);
+        // ...
+        navigation.navigate('HomeTab');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+        console.log(errorCode);
+        console.log(errorMessage);
+        Alert.alert(errorCode);
+      });
+  }
 
   return (
     <View style={styles.container}>
@@ -30,7 +52,7 @@ function SignUpScreen({ navigation }) {
           secureTextEntry
           textContentType="password"
         />
-        <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('HomeTab')}>
+        <TouchableOpacity style={styles.buttonContainer} onPress={handlePress}>
           <Text style={styles.buttonLabel}>新規登録</Text>
         </TouchableOpacity>
       </View>
