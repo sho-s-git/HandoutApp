@@ -1,12 +1,26 @@
 import React from 'react';
+import {
+  View, Text, StyleSheet, TextInput, TouchableOpacity, Alert,
+} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+
+import { getAuth, signOut } from 'firebase/auth';
 
 import HandoutListScreen from './HandoutListScreen';
 import HandoutRegisterScreen from './HandoutRegisterScreen';
 import Settings from './Settings';
 
 const Tab = createBottomTabNavigator();
+
+function handlePress() {
+  const auth = getAuth();
+  signOut(auth).then(() => {
+    // Sign-out successful.
+  }).catch(() => {
+    // An error happened.
+  });
+}
 
 function HomeTab() {
   return (
@@ -21,6 +35,11 @@ function HomeTab() {
           ),
           tabBarActiveTintColor: '#FF9900',
           tabBarInactiveTintColor: 'gray',
+          headerRight: () => (
+            <TouchableOpacity style={styles.skipContainer} onPress={handlePress}>
+              <Text style={styles.skipLabel}>ログアウト</Text>
+            </TouchableOpacity>
+          ),
         }}
       />
       <Tab.Screen
@@ -52,3 +71,14 @@ function HomeTab() {
 }
 
 export default HomeTab;
+
+const styles = StyleSheet.create({
+  skipContainer: {
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+  },
+  skipLabel: {
+    fontSize: 14,
+    color: '#FF9900',
+  },
+});
