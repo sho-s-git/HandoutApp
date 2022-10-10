@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { getAuth, signOut } from 'firebase/auth';
 
 import HandoutListScreen from './HandoutListScreen';
-import HandoutRegisterForm from './HandoutRegisterForm';
+import HandoutRegisterFormScreen from './HandoutRegisterFormScreen';
 import Settings from './Settings';
 
 const Tab = createBottomTabNavigator();
@@ -44,7 +44,7 @@ function HomeTab() {
       />
       <Tab.Screen
         name="HandoutRegisterForm"
-        component={HandoutRegisterForm}
+        component={HandoutRegisterFormScreen}
         options={{
           tabBarLabel: '追加',
           tabBarIcon: ({ color, size }) => (

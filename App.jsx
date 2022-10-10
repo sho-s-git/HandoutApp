@@ -8,12 +8,14 @@ import * as SplashScreen from 'expo-splash-screen';
 
 import { initializeApp, getApp, getApps } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 import { firebaseConfig } from './env';
 
 import TopScreen from './src/screens/TopScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 import LogInScreen from './src/screens/LogInScreen';
 import HomeTab from './src/screens/HomeTab';
+import HandoutRegisterFormScreen from './src/screens/HandoutRegisterFormScreen';
 import HandoutRegisterScreen from './src/screens/HandoutRegisterScreen';
 import ViewHandout from './src/screens/ViewHandout';
 
@@ -22,6 +24,7 @@ SplashScreen.preventAutoHideAsync();
 
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+getFirestore(app);
 
 // Ignore log notification by message:
 LogBox.ignoreLogs(['AsyncStorage has been extracted']);
@@ -74,6 +77,7 @@ function App() {
         {user ? (
           <>
             <Stack.Screen name="HomeTab" component={HomeTab} options={{ headerShown: false }} />
+            <Stack.Screen name="HandoutRegisterForm" component={HandoutRegisterFormScreen} />
             <Stack.Screen name="HandoutRegister" component={HandoutRegisterScreen} />
             <Stack.Screen name="ViewHandout" component={ViewHandout} />
 

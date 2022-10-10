@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet, View, Button, Text, Image,
+  StyleSheet, View, Text, Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -123,7 +123,6 @@ const styles = StyleSheet.create({
   },
   member: {
     flexDirection: 'row',
-    //backgroundColor: '#F0F0F0',
     flexWrap: 'wrap',
     alignItems: 'start',
   },
